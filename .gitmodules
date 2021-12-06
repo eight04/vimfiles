@@ -12,8 +12,8 @@
 	branch = master
 [submodule "pack/plugins/start/lexima.vim"]
 	path = pack/plugins/start/lexima.vim
-	url = https://github.com/cohama/lexima.vim.git
-	branch = master
+	url = https://github.com/eight04/lexima.vim.git
+	branch = dev-ignore-doctags
 [submodule "pack/plugins/start/nerdcommenter"]
 	path = pack/plugins/start/nerdcommenter
 	url = https://github.com/preservim/nerdcommenter.git
