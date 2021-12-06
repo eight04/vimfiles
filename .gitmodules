@@ -54,3 +54,6 @@
 	path = pack/plugins/start/vim-togglelist
 	url = https://github.com/milkypostman/vim-togglelist.git
 	branch = master
+[submodule "pack/plugins/start/bullets.vim"]
+	path = pack/plugins/start/bullets.vim
+	url = https://github.com/dkarter/bullets.vim.git

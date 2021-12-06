@@ -22,6 +22,7 @@ set shiftwidth=2
 set expandtab
 set grepprg=rg\ -n
 let g:vim_indent_cont = 0
+set scrolloff=40
 
 " prosession
 if has('win32')
