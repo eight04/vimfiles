@@ -1,0 +1,56 @@
+[submodule "pack/plugins/start/editorconfig-vim"]
+	path = pack/plugins/start/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim.git
+	branch = master
+[submodule "pack/plugins/start/emmet-vim"]
+	path = pack/plugins/start/emmet-vim
+	url = https://github.com/eight04/emmet-vim.git
+	branch = dev-update-tag-name
+[submodule "pack/plugins/start/fzf"]
+	path = pack/plugins/start/fzf
+	url = https://github.com/junegunn/fzf.git
+	branch = master
+[submodule "pack/plugins/start/lexima.vim"]
+	path = pack/plugins/start/lexima.vim
+	url = https://github.com/cohama/lexima.vim.git
+	branch = master
+[submodule "pack/plugins/start/nerdcommenter"]
+	path = pack/plugins/start/nerdcommenter
+	url = https://github.com/preservim/nerdcommenter.git
+	branch = master
+[submodule "pack/plugins/start/targets.vim"]
+	path = pack/plugins/start/targets.vim
+	url = https://github.com/wellle/targets.vim.git
+	branch = master
+[submodule "pack/plugins/start/vim-backslash"]
+	path = pack/plugins/start/vim-backslash
+	url = https://github.com/lambdalisue/vim-backslash.git
+	branch = master
+[submodule "pack/plugins/start/vim-indent-object"]
+	path = pack/plugins/start/vim-indent-object
+	url = https://github.com/michaeljsmith/vim-indent-object.git
+	branch = master
+[submodule "pack/plugins/start/vim-matchup"]
+	path = pack/plugins/start/vim-matchup
+	url = https://github.com/andymass/vim-matchup.git
+	branch = master
+[submodule "pack/plugins/start/vim-obsession"]
+	path = pack/plugins/start/vim-obsession
+	url = https://github.com/tpope/vim-obsession.git
+	branch = master
+[submodule "pack/plugins/start/vim-prosession"]
+	path = pack/plugins/start/vim-prosession
+	url = https://github.com/eight04/vim-prosession.git
+	branch = master
+[submodule "pack/plugins/start/vim-smarthome"]
+	path = pack/plugins/start/vim-smarthome
+	url = https://github.com/m-pilia/vim-smarthome.git
+	branch = master
+[submodule "pack/plugins/start/vim-start-cmd"]
+	path = pack/plugins/start/vim-start-cmd
+	url = https://github.com/eight04/vim-start-cmd.git
+	branch = main
+[submodule "pack/plugins/start/vim-togglelist"]
+	path = pack/plugins/start/vim-togglelist
+	url = https://github.com/milkypostman/vim-togglelist.git
+	branch = master
