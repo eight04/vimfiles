@@ -48,6 +48,42 @@ nnoremap <silent> L :call smarthome#SmartEnd('n')<CR>
 onoremap <silent> F :<C-U>normal! 0f(hviw<CR>
 onoremap <silent> i@ :<C-U>execute "normal! B/\\%[\\w\\.]\\+@\\%[\\w\\.]\\+/e\rv??\r"<CR>
 
+" Live
+if !exists("s:timer")
+  let s:timer = 0
+endif
+
+command Live call <SID>GoLive()
+augroup live_reload
+  au!
+  au BufEnter * call <SID>ToggleTimer()
+augroup END
+
+function s:GoLive()
+  let b:live_enabled = !get(b:, "live_enabled")
+  call s:ToggleTimer()
+  echo (b:live_enabled ? "" : "no") . "livereload"
+endfunction
+
+function s:LiveTimer(timer)
+  if get(b:, "live_enabled")
+    let is_last_line = line(".") == line("$")
+    execute "checktime" bufnr()
+    if is_last_line
+      normal! G
+    endif
+  endif
+endfunction
+
+function s:ToggleTimer()
+  if get(b:, "live_enabled") && !s:timer
+    let s:timer = timer_start(1000, function("<SID>LiveTimer"), {"repeat": -1})
+  elseif !get(b:, "live_enabled") && s:timer
+    call timer_stop(s:timer)
+    let s:timer = 0
+  endif
+endfunction
+
 " Emmet
 nnoremap <C-y>u :call EmmetUpdateTag()<CR>
 let g:user_emmet_settings = {
