@@ -41,9 +41,6 @@ autocmd User targets#mappings#user call targets#mappings#extend({
 let g:NERDSpaceDelims = 1
 let g:NERDTrimTrailingWhitespace = 1
 
-" Cmd
-let g:start_cmd_clear_env = ["LANG"]
-
 " user key
 nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <silent> H :call smarthome#SmartHome('n')<CR> 
