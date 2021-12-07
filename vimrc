@@ -23,6 +23,7 @@ set expandtab
 set grepprg=rg\ -n
 let g:vim_indent_cont = 0
 set scrolloff=40
+set switchbuf+=usetab,newtab
 
 " prosession
 if has('win32')
@@ -30,6 +31,11 @@ if has('win32')
 endif
 let g:prosession_last_session_dir = "~"
 " set sessionoptions-=options
+
+" text object
+autocmd User targets#mappings#user call targets#mappings#extend({
+		\ 'a': {'argument': [{'o': '[{([]', 'c': '[])}]', 's': ','}]},
+		\ })
 
 " nerdcommenter
 let g:NERDSpaceDelims = 1
