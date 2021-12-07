@@ -58,3 +58,6 @@
 	path = pack/plugins/start/bullets.vim
 	url = https://github.com/dkarter/bullets.vim.git
 	branch = master
+[submodule "pack/plugins/start/indentLine"]
+	path = pack/plugins/start/indentLine
+	url = https://github.com/Yggdroot/indentLine.git
