@@ -49,7 +49,7 @@ onoremap <silent> F :<C-U>normal! 0f(hviw<CR>
 onoremap <silent> i@ :<C-U>execute "normal! B/\\%[\\w\\.]\\+@\\%[\\w\\.]\\+/e\rv??\r"<CR>
 
 " Indent line
-let g:indentLine_fileTypeExclude = ['help']
+let g:indentLine_fileTypeExclude = ['help', 'json']
 
 " Emmet
 nnoremap <C-y>u :call EmmetUpdateTag()<CR>
