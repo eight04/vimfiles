@@ -24,6 +24,11 @@ set grepprg=rg\ -n
 let g:vim_indent_cont = 0
 set scrolloff=40
 set switchbuf+=usetab,newtab
+set iskeyword+=-
+
+" indent?
+" https://github.com/vim/vim/issues/9333
+let g:html_indent_script1 = "zero"
 
 " prosession
 if has('win32')
@@ -49,7 +54,8 @@ onoremap <silent> F :<C-U>normal! 0f(hviw<CR>
 onoremap <silent> i@ :<C-U>execute "normal! B/\\%[\\w\\.]\\+@\\%[\\w\\.]\\+/e\rv??\r"<CR>
 
 " Indent line
-let g:indentLine_fileTypeExclude = ['help', 'json']
+let g:indentLine_fileTypeExclude = ['help']
+let g:vim_json_conceal = 0
 
 " Emmet
 nnoremap <C-y>u :call EmmetUpdateTag()<CR>
