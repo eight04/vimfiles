@@ -136,3 +136,21 @@ function! s:AlignRightOperator(type)
   let @@ = oldR
 endfunction
 
+" Substitute operator
+nnoremap <silent> <leader>s :set operatorfunc=<SID>SubstituteOperator<cr>g@
+vnoremap <silent> <leader>s :<C-U>call <SID>SubstituteOperator(visualmode())<CR>
+
+function! s:SubstituteOperator(type)
+  let oldR = @@
+  if a:type ==# "v"
+    execute "normal! `<v`>y"
+  elseif a:type ==# "char"
+    execute "normal! `[v`]y"
+  else
+    return
+  endif
+  let word = @@
+  call feedkeys(":%s/" . word . "/")
+  let @@ = oldR
+endfunction
+
