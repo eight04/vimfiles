@@ -29,6 +29,7 @@ set iskeyword+=-
 " indent?
 " https://github.com/vim/vim/issues/9333
 let g:html_indent_script1 = "zero"
+let g:pyindent_open_paren = "shiftwidth()"
 
 " prosession
 if has('win32')
