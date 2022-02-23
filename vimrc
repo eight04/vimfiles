@@ -26,6 +26,10 @@ set scrolloff=40
 set switchbuf+=usetab,newtab
 set iskeyword+=-
 
+" svelte
+let g:vim_svelte_plugin_use_typescript = 1
+let g:vim_svelte_plugin_has_init_indent = 0
+
 " indent?
 " https://github.com/vim/vim/issues/9333
 let g:html_indent_script1 = "zero"
