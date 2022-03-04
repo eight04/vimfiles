@@ -69,3 +69,9 @@
 [submodule "pack/plugins/start/vim-svelte-plugin"]
 	path = pack/plugins/start/vim-svelte-plugin
 	url = https://github.com/leafOfTree/vim-svelte-plugin.git
+[submodule "pack/plugins/start/vim-javascript"]
+	path = pack/plugins/start/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule "pack/plugins/start/vim-pasta"]
+	path = pack/plugins/start/vim-pasta
+	url = https://github.com/sickill/vim-pasta.git
