@@ -75,3 +75,7 @@
 [submodule "pack/plugins/start/vim-pasta"]
 	path = pack/plugins/start/vim-pasta
 	url = https://github.com/sickill/vim-pasta.git
+[submodule "pack/plugins/start/coc.nvim"]
+        branch = release
+	path = pack/plugins/start/coc.nvim
+	url = https://github.com/neoclide/coc.nvim.git
