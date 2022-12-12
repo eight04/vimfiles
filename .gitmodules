@@ -14,10 +14,6 @@
 	path = pack/plugins/start/lexima.vim
 	url = https://github.com/eight04/lexima.vim.git
 	branch = dev-ignore-doctags
-[submodule "pack/plugins/start/nerdcommenter"]
-	path = pack/plugins/start/nerdcommenter
-	url = https://github.com/preservim/nerdcommenter.git
-	branch = master
 [submodule "pack/plugins/start/targets.vim"]
 	path = pack/plugins/start/targets.vim
 	url = https://github.com/wellle/targets.vim.git
@@ -79,3 +75,6 @@
         branch = release
 	path = pack/plugins/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim.git
+[submodule "pack/plugins/start/tcomment_vim"]
+	path = pack/plugins/start/tcomment_vim
+	url = https://github.com/tomtom/tcomment_vim.git
