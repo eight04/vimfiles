@@ -25,6 +25,13 @@ let g:vim_indent_cont = 0
 set scrolloff=40
 set switchbuf+=usetab,newtab
 set iskeyword+=-
+set dir=$HOME/vimfiles/swp//
+
+" tcomment
+let g:tcomment_opleader1 = "<Leader>c"
+
+" CocStop
+command! CocStop call coc#rpc#kill()
 
 " ts
 nmap <silent> gd <Plug>(coc-definition)
