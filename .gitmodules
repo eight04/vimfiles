@@ -78,3 +78,6 @@
 [submodule "pack/plugins/start/tcomment_vim"]
 	path = pack/plugins/start/tcomment_vim
 	url = https://github.com/tomtom/tcomment_vim.git
+[submodule "pack/plugins/start/copilot.vim"]
+	path = pack/plugins/start/copilot.vim
+	url = https://github.com/github/copilot.vim.git
