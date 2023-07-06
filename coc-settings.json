@@ -1,3 +1,39 @@
 {
-  "coc.preferences.jumpCommand": "tab drop"
+  "coc.preferences.jumpCommand": "tab drop",
+  "languageserver": {
+    "lsp-ahk2": {
+      "module": "C:/Users/eight04/AppData/Local/coc/extensions-vscode/thqby.vscode-autohotkey2-lsp-2.0.0/extension/server/dist/server.js",
+      "filetypes": ["autohotkey"],
+      "args": ["--node-ipc"],
+      "initializationOptions": {
+        "locale": "en-us", // or "zh-cn"
+        "AutoLibInclude": "Disabled", // or "Local" or "User and Standard" or "All"
+        "CommentTags": "^;;\\s*(?<tag>.+)",
+        "CompleteFunctionParens": false,
+        "Diagnostics": {
+                "ClassStaticMemberCheck": true,
+                "ParamsCheck": true
+        },
+        "ActionWhenV1IsDetected": "Continue",
+        "FormatOptions": {
+                "break_chained_methods": false,
+                "ignore_comment": false,
+                "indent_string": "\t",
+                "keep_array_indentation": true,
+                "max_preserve_newlines": 2,
+                "brace_style": "One True Brace", // or "Allman" or "One True Brace Variant"
+                "preserve_newlines": true,
+                "space_after_double_colon": true,
+                "space_before_conditional": true,
+                "space_in_empty_paren": false,
+                "space_in_other": true,
+                "space_in_paren": false,
+                "wrap_line_length": 0
+        },
+        "InterpreterPath": "C:/Program Files/AutoHotkey/v2/AutoHotkey.exe",
+        "WorkingDirs": [],
+        "SymbolFoldingFromOpenBrace": false
+      }
+    }
+  }
 }

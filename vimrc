@@ -38,6 +38,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> grn <Plug>(coc-rename)
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -76,6 +77,8 @@ let g:NERDSpaceDelims = 1
 let g:NERDTrimTrailingWhitespace = 1
 
 " user key
+nnoremap <silent> j gj
+nnoremap <silent> k gk
 nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <silent> H :call smarthome#SmartHome('n')<CR> 
 nnoremap <silent> L :call smarthome#SmartEnd('n')<CR>
