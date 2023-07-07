@@ -81,3 +81,6 @@
 [submodule "pack/plugins/start/copilot.vim"]
 	path = pack/plugins/start/copilot.vim
 	url = https://github.com/github/copilot.vim.git
+[submodule "pack/plugins/start/auto_mkdir2"]
+	path = pack/plugins/start/auto_mkdir2
+	url = https://github.com/arp242/auto_mkdir2.vim.git
