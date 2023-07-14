@@ -10,18 +10,25 @@ from subprocess import run
 
 ROOT = Path("pack/plugins/start")
 
+
 def get_plugin_name(url):
-    return url.split('/')[-1].split('.')[0]
+    return url.split("/")[-1].split(".")[0]
+
 
 def posix_path(p):
     # https://github.com/git-for-windows/git/issues/3575
     return str(PurePosixPath(p))
 
+
 class App:
     def __init__(self):
         parser = argparse.ArgumentParser()
-        parser.add_argument('command', choices=['install', 'update', 'uninstall', 'list', 'outdated'])
-        parser.add_argument('plugin', nargs='*', help='git url or plugin name (when update/uninstall)')
+        parser.add_argument(
+            "command", choices=["install", "update", "uninstall", "list", "outdated"]
+        )
+        parser.add_argument(
+            "plugin", nargs="*", help="git url or plugin name (when update/uninstall)"
+        )
         args = parser.parse_args()
         getattr(self, args.command)(args.plugin)
 
@@ -37,7 +44,7 @@ class App:
                 plugin, branch = t
             name = get_plugin_name(plugin)
             # FIXME: depth=1 doesn't work with branch? failed to install coc.nvim
-            cmd = ["git", "submodule", "add", "--force"] 
+            cmd = ["git", "submodule", "add", "--force"]
             if branch:
                 cmd.append("-b")
                 cmd.append(branch)
@@ -49,25 +56,41 @@ class App:
             plugins = [plugin.name for plugin in ROOT.iterdir()]
 
         for plugin in plugins:
-            r = run("git status", shell=True, cwd=(f"{posix_path(ROOT)}/{plugin}"), capture_output=True, text=True)
+            r = run(
+                "git status",
+                shell=True,
+                cwd=(f"{posix_path(ROOT)}/{plugin}"),
+                capture_output=True,
+                text=True,
+            )
             if "up to date" in r.stdout:
                 continue
             print(plugin)
             if "HEAD detached" in r.stdout:
                 # switch back to init branch?
                 r = run(
-                    f"git config -f .gitmodules submodule.\"{posix_path(ROOT)}/{plugin}\".branch",
+                    f'git config -f .gitmodules submodule."{posix_path(ROOT)}/{plugin}".branch',
                     shell=True,
                     cwd=f"{posix_path(ROOT)}/{plugin}",
                     capture_output=True,
-                    text=True
-                    )
+                    text=True,
+                )
                 branch = r.stdout.strip()
                 if not branch:
                     # siwtch to remote default?
-                    r = run("git remote show origin", shell=True, cwd=(f"{posix_path(ROOT)}/{plugin}"), capture_output=True, text=True)
+                    r = run(
+                        "git remote show origin",
+                        shell=True,
+                        cwd=(f"{posix_path(ROOT)}/{plugin}"),
+                        capture_output=True,
+                        text=True,
+                    )
                     branch = re.search(r"HEAD branch: (.*)", r.stdout).group(1)
-                run(["git", "checkout", branch], shell=True, cwd=(f"{posix_path(ROOT)}/{plugin}"))
+                run(
+                    ["git", "checkout", branch],
+                    shell=True,
+                    cwd=(f"{posix_path(ROOT)}/{plugin}"),
+                )
             run("git pull", shell=True, cwd=(f"{posix_path(ROOT)}/{plugin}"))
             print("")
 
@@ -84,7 +107,12 @@ class App:
             plugins = [plugin.name for plugin in ROOT.iterdir()]
 
         for plugin in plugins:
-            r = run("git log ..@{u} --oneline --color=always", shell=True, cwd=(f"{posix_path(ROOT)}/{plugin}"), capture_output=True)
+            r = run(
+                "git log ..@{u} --oneline --color=always",
+                shell=True,
+                cwd=(f"{posix_path(ROOT)}/{plugin}"),
+                capture_output=True,
+            )
             if r.stdout:
                 print(plugin)
                 sys.stdout.buffer.write(r.stdout)
@@ -95,5 +123,5 @@ class App:
                 sys.stdout.buffer.write(r.stderr)
                 print("")
 
-App()
 
+App()
