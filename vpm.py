@@ -1,5 +1,5 @@
 """
-vpm.py - a simple package manager cli for Vim plugins, based on git submodules and python.
+vpm.py - a simple package manager cli for Vim plugins, based on git submodules.
 """
 import argparse
 
@@ -37,7 +37,7 @@ class App:
             run(cmd, shell=True)
 
     def update(self, plugins):
-        pass
+        raise NotImplementedError
 
     def uninstall(self, plugins):
         for plugin in plugins:
