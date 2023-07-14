@@ -4,11 +4,14 @@ vpm.py - a simple package manager cli for Vim plugins, based on git submodules.
 import argparse
 import re
 import sys
+import shutil
 
 from pathlib import Path, PurePosixPath
 from subprocess import run
 
 ROOT = Path("pack/plugins/start")
+
+
 
 
 def get_plugin_name(url):
@@ -97,6 +100,8 @@ class App:
     def uninstall(self, plugins):
         for plugin in plugins:
             run(["git", "rm", "-f", (f"{posix_path(ROOT)}/{plugin}")], shell=True)
+            run(["git", "config", "--remove-section", f"submodule.\"{posix_path(ROOT)}/{plugin}\""], shell=True)
+            shutil.rmtree(f".git/modules/{posix_path(ROOT)}/{plugin}", ignore_errors=True)
 
     def list(self, _):
         for plugin in ROOT.iterdir():

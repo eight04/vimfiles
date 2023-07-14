@@ -65,9 +65,6 @@
 [submodule "pack/plugins/start/auto_mkdir2"]
 	path = pack/plugins/start/auto_mkdir2
 	url = https://github.com/arp242/auto_mkdir2.vim.git
-[submodule "pack/plugins/start/auto-pairs"]
-	path = pack/plugins/start/auto-pairs
-	url = https://github.com/jiangmiao/auto-pairs.git
 [submodule "pack/plugins/start/coc"]
 	path = pack/plugins/start/coc
 	url = https://github.com/neoclide/coc.nvim.git
