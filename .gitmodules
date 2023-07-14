@@ -78,3 +78,7 @@
 [submodule "pack/plugins/start/copilot"]
 	path = pack/plugins/start/copilot
 	url = https://github.com/github/copilot.vim.git
+[submodule "pack/plugins/start/lexima"]
+	path = pack/plugins/start/lexima
+	url = https://github.com/cohama/lexima.vim.git
+	branch = master

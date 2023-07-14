@@ -42,16 +42,14 @@ class App:
 
         for plugin in plugins:
             branch = None
-            t = plugin.split("#")
-            if len(t) == 2:
-                plugin, branch = t
+            if "#" in plugin:
+                plugin, branch = plugin.split("#")
+            else:
+                r = run(["git", "remote", "show", plugin], capture_output=True, text=True)
+                branch = re.search(r"HEAD branch: (.*)", r.stdout).group(1)
             name = get_plugin_name(plugin)
             # FIXME: depth=1 doesn't work with branch? failed to install coc.nvim
-            cmd = ["git", "submodule", "add", "--force"]
-            if branch:
-                cmd.append("-b")
-                cmd.append(branch)
-            cmd.extend([plugin, (f"{posix_path(ROOT)}/{name}")])
+            cmd = ["git", "submodule", "add", "-b", branch, plugin, (f"{posix_path(ROOT)}/{name}")]
             run(cmd, shell=True)
 
     def update(self, plugins):
