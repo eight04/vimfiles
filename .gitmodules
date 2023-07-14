@@ -10,10 +10,6 @@
 	path = pack/plugins/start/fzf
 	url = https://github.com/junegunn/fzf.git
 	branch = master
-[submodule "pack/plugins/start/lexima.vim"]
-	path = pack/plugins/start/lexima.vim
-	url = https://github.com/eight04/lexima.vim.git
-	branch = dev-ignore-doctags
 [submodule "pack/plugins/start/targets.vim"]
 	path = pack/plugins/start/targets.vim
 	url = https://github.com/wellle/targets.vim.git
