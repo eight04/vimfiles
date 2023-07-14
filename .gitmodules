@@ -2,10 +2,6 @@
 	path = pack/plugins/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
 	branch = master
-[submodule "pack/plugins/start/emmet-vim"]
-	path = pack/plugins/start/emmet-vim
-	url = https://github.com/eight04/emmet-vim.git
-	branch = dev-update-tag-name
 [submodule "pack/plugins/start/fzf"]
 	path = pack/plugins/start/fzf
 	url = https://github.com/junegunn/fzf.git
@@ -42,10 +38,6 @@
 	path = pack/plugins/start/vim-start-cmd
 	url = https://github.com/eight04/vim-start-cmd.git
 	branch = main
-[submodule "pack/plugins/start/vim-togglelist"]
-	path = pack/plugins/start/vim-togglelist
-	url = https://github.com/eight04/vim-togglelist.git
-	branch = dev-hidden-buffer
 [submodule "pack/plugins/start/bullets.vim"]
 	path = pack/plugins/start/bullets.vim
 	url = https://github.com/dkarter/bullets.vim.git
@@ -67,19 +59,25 @@
 [submodule "pack/plugins/start/vim-pasta"]
 	path = pack/plugins/start/vim-pasta
 	url = https://github.com/sickill/vim-pasta.git
-[submodule "pack/plugins/start/coc.nvim"]
-        branch = release
-	path = pack/plugins/start/coc.nvim
-	url = https://github.com/neoclide/coc.nvim.git
 [submodule "pack/plugins/start/tcomment_vim"]
 	path = pack/plugins/start/tcomment_vim
 	url = https://github.com/tomtom/tcomment_vim.git
-[submodule "pack/plugins/start/copilot.vim"]
-	path = pack/plugins/start/copilot.vim
-	url = https://github.com/github/copilot.vim.git
 [submodule "pack/plugins/start/auto_mkdir2"]
 	path = pack/plugins/start/auto_mkdir2
 	url = https://github.com/arp242/auto_mkdir2.vim.git
 [submodule "pack/plugins/start/auto-pairs"]
 	path = pack/plugins/start/auto-pairs
 	url = https://github.com/jiangmiao/auto-pairs.git
+[submodule "pack/plugins/start/coc"]
+	path = pack/plugins/start/coc
+	url = https://github.com/neoclide/coc.nvim.git
+	branch = release
+[submodule "pack/plugins/start/emmet-vim"]
+	path = pack/plugins/start/emmet-vim
+	url = https://github.com/mattn/emmet-vim.git
+[submodule "pack/plugins/start/vim-togglelist"]
+	path = pack/plugins/start/vim-togglelist
+	url = https://github.com/milkypostman/vim-togglelist.git
+[submodule "pack/plugins/start/copilot"]
+	path = pack/plugins/start/copilot
+	url = https://github.com/github/copilot.vim.git
