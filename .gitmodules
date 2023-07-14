@@ -82,3 +82,7 @@
 	path = pack/plugins/start/lexima
 	url = https://github.com/cohama/lexima.vim.git
 	branch = master
+[submodule "pack/plugins/start/vim-surround"]
+	path = pack/plugins/start/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+	branch = master
