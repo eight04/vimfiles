@@ -60,7 +60,7 @@ class App:
             r = run(
                 "git status",
                 shell=True,
-                cwd=(f"{posix_path(ROOT)}/{plugin}"),
+                cwd=f"{posix_path(ROOT)}/{plugin}",
                 capture_output=True,
                 text=True,
             )
