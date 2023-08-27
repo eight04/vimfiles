@@ -30,6 +30,9 @@ set dir=$HOME/vimfiles/swp//
 " tcomment
 let g:tcomment_opleader1 = "<Leader>c"
 
+" Lexima
+inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
+
 " Coc
 command! CocStop call coc#rpc#kill()
 
@@ -39,7 +42,7 @@ set updatetime=300
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved
-set signcolumn=yes
+" set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
@@ -221,6 +224,9 @@ function! s:AlignRightOperator(type)
   endif
   let @@ = oldR
 endfunction
+
+nmap <silent> <Leader>k <Plug>SearchNormal
+vmap <silent> <Leader>k <Plug>SearchVisual
 
 " Substitute operator
 nnoremap <silent> <leader>s :set operatorfunc=<SID>SubstituteOperator<cr>g@

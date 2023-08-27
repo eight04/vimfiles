@@ -78,3 +78,7 @@ hi VisualNOS gui=none guibg=black
 execute "hi WarningMsg  guifg=" . s:Colors[5]  . " guibg=" . s:Colors[12] . " gui=none"
 execute "hi WildMenu  guifg="   . s:Colors[14] . " guibg=" . s:Colors[5]  . " gui=none"
 
+" Coc
+execute "hi CocInlayHint guifg=" . s:Colors[9]  . " guibg=" . s:Colors[12] . " gui=none"
+execute "hi CocInlayHintType guifg=" . s:Colors[9]  . " guibg=" . s:Colors[12] . " gui=none"
+execute "hi CocInlayParameter guifg=" . s:Colors[9]  . " guibg=" . s:Colors[12] . " gui=none"

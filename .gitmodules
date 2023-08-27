@@ -86,3 +86,7 @@
 	path = pack/plugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
 	branch = master
+[submodule "pack/plugins/start/vim-browser-search"]
+	path = pack/plugins/start/vim-browser-search
+	url = https://github.com/voldikss/vim-browser-search.git
+	branch = master
