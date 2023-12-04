@@ -123,7 +123,7 @@ let g:NERDTrimTrailingWhitespace = 1
 " user key
 nnoremap <silent> j gj
 nnoremap <silent> k gk
-nnoremap <silent> <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <silent> <leader>ev :tabe $MYVIMRC<CR>
 nnoremap <silent> H :call smarthome#SmartHome('n')<CR> 
 nnoremap <silent> L :call smarthome#SmartEnd('n')<CR>
 onoremap <silent> F :<C-U>normal! 0f(hviw<CR>

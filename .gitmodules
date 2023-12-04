@@ -90,3 +90,7 @@
 	path = pack/plugins/start/bullets
 	url = https://github.com/dkarter/bullets.vim.git
 	branch = master
+[submodule "pack/plugins/start/vim-backslash"]
+	path = pack/plugins/start/vim-backslash
+	url = https://github.com/lambdalisue/vim-backslash.git
+	branch = master

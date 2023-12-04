@@ -96,6 +96,7 @@ class App:
             run(["git", "config", "--remove-section", f"submodule.\"{posix_path(ROOT)}/{plugin}\""], shell=True)
             # NOTE: this leaves some idx files that raises permission error?
             shutil.rmtree(f".git/modules/{posix_path(ROOT)}/{plugin}", ignore_errors=True)
+            shutil.rmtree(f"{posix_path(ROOT)}/{plugin}", ignore_errors=True)
 
     def list(self, _):
         for plugin in ROOT.iterdir():
