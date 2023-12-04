@@ -11,17 +11,12 @@ from subprocess import run
 
 ROOT = Path("pack/plugins/start")
 
-
-
-
 def get_plugin_name(url):
     return url.split("/")[-1].split(".")[0]
-
 
 def posix_path(p):
     # https://github.com/git-for-windows/git/issues/3575
     return str(PurePosixPath(p))
-
 
 class App:
     def __init__(self):
@@ -49,7 +44,7 @@ class App:
                 branch = re.search(r"HEAD branch: (.*)", r.stdout).group(1)
             name = get_plugin_name(plugin)
             # FIXME: depth=1 doesn't work with branch? failed to install coc.nvim
-            cmd = ["git", "submodule", "add", "-b", branch, plugin, (f"{posix_path(ROOT)}/{name}")]
+            cmd = ["git", "submodule", "add", "--force",  "-b", branch, plugin, f"{posix_path(ROOT)}/{name}"]
             run(cmd, shell=True)
 
     def update(self, plugins):
@@ -99,6 +94,7 @@ class App:
         for plugin in plugins:
             run(["git", "rm", "-f", (f"{posix_path(ROOT)}/{plugin}")], shell=True)
             run(["git", "config", "--remove-section", f"submodule.\"{posix_path(ROOT)}/{plugin}\""], shell=True)
+            # NOTE: this leaves some idx files that raises permission error?
             shutil.rmtree(f".git/modules/{posix_path(ROOT)}/{plugin}", ignore_errors=True)
 
     def list(self, _):

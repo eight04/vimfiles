@@ -86,3 +86,7 @@
 	path = pack/plugins/start/vim-peekaboo
 	url = https://github.com/junegunn/vim-peekaboo.git
 	branch = master
+[submodule "pack/plugins/start/bullets"]
+	path = pack/plugins/start/bullets
+	url = https://github.com/dkarter/bullets.vim.git
+	branch = master
