@@ -28,12 +28,30 @@ set switchbuf+=usetab,newtab
 set iskeyword+=-
 set dir=$HOME/vimfiles/swp//
 
+" Bullets
+let g:bullets_set_mappings = 0 " disable adding default key mappings, default = 1
+let g:bullets_custom_mappings = [
+  \ ['nmap', 'o', '<Plug>(bullets-newline)'],
+  \
+  \ ['vmap', 'gN', '<Plug>(bullets-renumber)'],
+  \ ['nmap', 'gN', '<Plug>(bullets-renumber)'],
+  \
+  \ ['nmap', '<leader>x', '<Plug>(bullets-toggle-checkbox)'],
+  \
+  \ ['imap', '<C-t>', '<Plug>(bullets-demote)'],
+  \ ['nmap', '>>', '<Plug>(bullets-demote)'],
+  \ ['vmap', '>', '<Plug>(bullets-demote)'],
+  \ ['imap', '<C-d>', '<Plug>(bullets-promote)'],
+  \ ['nmap', '<<', '<Plug>(bullets-promote)'],
+  \ ['vmap', '<', '<Plug>(bullets-promote)'],
+  \ ]
+
 " tcomment
 let g:tcomment_opleader1 = "<Leader>c"
 
 " Coc
 command! CocStop call coc#rpc#kill()
-autocmd FileType text let b:coc_disabled_sources = ['around']
+autocmd FileType text let b:coc_disabled_sources = ['around', 'buffer']
 set updatetime=300
 
 " Use tab for trigger completion with characters ahead and navigate
@@ -47,7 +65,7 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<Plug>(bullets-newline)\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
   let col = col('.') - 1
@@ -123,7 +141,7 @@ let g:NERDTrimTrailingWhitespace = 1
 " user key
 nnoremap <silent> j gj
 nnoremap <silent> k gk
-nnoremap <silent> <leader>ev :tabe $MYVIMRC<CR>
+nnoremap <silent> <leader>ev :tab drop $MYVIMRC<CR>
 nnoremap <silent> H :call smarthome#SmartHome('n')<CR> 
 nnoremap <silent> L :call smarthome#SmartEnd('n')<CR>
 onoremap <silent> F :<C-U>normal! 0f(hviw<CR>
