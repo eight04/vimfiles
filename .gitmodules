@@ -10,10 +10,6 @@
 	path = pack/plugins/start/targets.vim
 	url = https://github.com/wellle/targets.vim.git
 	branch = master
-[submodule "pack/plugins/start/vim-backslash"]
-	path = pack/plugins/start/vim-backslash
-	url = https://github.com/lambdalisue/vim-backslash.git
-	branch = master
 [submodule "pack/plugins/start/vim-indent-object"]
 	path = pack/plugins/start/vim-indent-object
 	url = https://github.com/michaeljsmith/vim-indent-object.git
@@ -38,10 +34,6 @@
 	path = pack/plugins/start/vim-start-cmd
 	url = https://github.com/eight04/vim-start-cmd.git
 	branch = main
-[submodule "pack/plugins/start/bullets.vim"]
-	path = pack/plugins/start/bullets.vim
-	url = https://github.com/dkarter/bullets.vim.git
-	branch = master
 [submodule "pack/plugins/start/indentLine"]
 	path = pack/plugins/start/indentLine
 	url = https://github.com/Yggdroot/indentLine.git
@@ -78,10 +70,6 @@
 [submodule "pack/plugins/start/copilot"]
 	path = pack/plugins/start/copilot
 	url = https://github.com/github/copilot.vim.git
-[submodule "pack/plugins/start/lexima"]
-	path = pack/plugins/start/lexima
-	url = https://github.com/cohama/lexima.vim.git
-	branch = master
 [submodule "pack/plugins/start/vim-surround"]
 	path = pack/plugins/start/vim-surround
 	url = https://github.com/tpope/vim-surround.git
@@ -89,4 +77,12 @@
 [submodule "pack/plugins/start/vim-browser-search"]
 	path = pack/plugins/start/vim-browser-search
 	url = https://github.com/voldikss/vim-browser-search.git
+	branch = master
+[submodule "pack/plugins/start/vim-mapping-conflicts"]
+	path = pack/plugins/start/vim-mapping-conflicts
+	url = https://github.com/lukhio/vim-mapping-conflicts.git
+	branch = master
+[submodule "pack/plugins/start/vim-peekaboo"]
+	path = pack/plugins/start/vim-peekaboo
+	url = https://github.com/junegunn/vim-peekaboo.git
 	branch = master

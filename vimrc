@@ -3,6 +3,7 @@ source $VIMRUNTIME/defaults.vim
 
 " basic settings
 if has('gui_running')
+  au GUIEnter * simalt ~x
   set guifont=Source_Code_Pro:h11:cANSI:qDRAFT
   colorscheme obsidian
   " autocmd VimEnter * echo ">^.^<"
@@ -30,19 +31,10 @@ set dir=$HOME/vimfiles/swp//
 " tcomment
 let g:tcomment_opleader1 = "<Leader>c"
 
-" Lexima
-inoremap <C-l> <C-r>=lexima#insmode#leave_till_eol("")<CR>
-
 " Coc
 command! CocStop call coc#rpc#kill()
-
-" Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
-" delays and poor user experience
+autocmd FileType text let b:coc_disabled_sources = ['around']
 set updatetime=300
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved
-" set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
@@ -55,13 +47,7 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" Lexima conflict
-let g:lexima_no_default_rules = 1
-call lexima#set_default_rules()
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
   let col = col('.') - 1
