@@ -1,6 +1,6 @@
 {
   "coc.preferences.jumpCommand": "tab drop",
-  "coc.preferences.formatOnType": true,
+  "coc.preferences.formatOnType": false,
   "languageserver": {
     "lsp-ahk2": {
       "module": "C:/Users/eight04/AppData/Local/coc/extensions-vscode/thqby.vscode-autohotkey2-lsp-2.0.0/extension/server/dist/server.js",

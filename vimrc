@@ -46,6 +46,9 @@ let g:bullets_custom_mappings = [
   \ ['vmap', '<', '<Plug>(bullets-promote)'],
   \ ]
 
+" lexima
+call lexima#add_rule({'char': '"', 'at': '\%#\w\|\w\%#'})
+
 " tcomment
 let g:tcomment_opleader1 = "<Leader>c"
 
@@ -65,7 +68,7 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<Plug>(bullets-newline)\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<C-r>=lexima#expand('<LT>CR>', 'i')<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
   let col = col('.') - 1

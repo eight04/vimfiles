@@ -78,10 +78,6 @@
 	path = pack/plugins/start/vim-browser-search
 	url = https://github.com/voldikss/vim-browser-search.git
 	branch = master
-[submodule "pack/plugins/start/vim-mapping-conflicts"]
-	path = pack/plugins/start/vim-mapping-conflicts
-	url = https://github.com/lukhio/vim-mapping-conflicts.git
-	branch = master
 [submodule "pack/plugins/start/vim-peekaboo"]
 	path = pack/plugins/start/vim-peekaboo
 	url = https://github.com/junegunn/vim-peekaboo.git
@@ -93,4 +89,8 @@
 [submodule "pack/plugins/start/vim-backslash"]
 	path = pack/plugins/start/vim-backslash
 	url = https://github.com/lambdalisue/vim-backslash.git
+	branch = master
+[submodule "pack/plugins/start/lexima"]
+	path = pack/plugins/start/lexima
+	url = https://github.com/cohama/lexima.vim.git
 	branch = master
