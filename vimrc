@@ -47,7 +47,12 @@ let g:bullets_custom_mappings = [
   \ ]
 
 " lexima
-call lexima#add_rule({'char': '"', 'at': '\%#\w\|\w\%#'})
+" https://github.com/cohama/lexima.vim/issues/129
+" call lexima#add_rule({'char': '"', 'at': '"\S\{-1,}\%#\|\%#\S\{-1,}"'})
+" call lexima#add_rule({'char': "'", 'at': '''\S\{-1,}\%#\|\%#\S\{-1,}'''})
+" call lexima#add_rule({'char': '`', 'at': '`\S\{-1,}\%#\|\%#\S\{-1,}`'})
+" https://github.com/cohama/lexima.vim/issues/83
+inoremap <M-n> <C-r>=lexima#insmode#leave_till_eol("")<CR>
 
 " tcomment
 let g:tcomment_opleader1 = "<Leader>c"
@@ -68,7 +73,15 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<C-r>=lexima#expand('<LT>CR>', 'i')<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <cr>
+  \ coc#pum#visible() ? coc#_select_confirm() :
+  \ InBulletList() ? "\<C-g>u\<Plug>(bullets-newline)\<c-r>=coc#on_enter()\<CR>" :
+  \ "\<C-g>u\<C-r>=lexima#expand('<LT>CR>', 'i')<CR>\<c-r>=coc#on_enter()\<CR>"
+  
+function! InBulletList() abort
+  let line = getline('.')
+  return line =~# '\v^\s*(\*|-|\d+\.)\s+'
+endfunction
 
 function! CheckBackspace() abort
   let col = col('.') - 1
