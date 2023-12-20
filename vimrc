@@ -52,6 +52,8 @@ let g:bullets_custom_mappings = [
 " call lexima#add_rule({'char': "'", 'at': '''\S\{-1,}\%#\|\%#\S\{-1,}'''})
 " call lexima#add_rule({'char': '`', 'at': '`\S\{-1,}\%#\|\%#\S\{-1,}`'})
 " https://github.com/cohama/lexima.vim/issues/83
+let g:lexima_no_default_rules = 1
+call lexima#set_default_rules()
 inoremap <M-n> <C-r>=lexima#insmode#leave_till_eol("")<CR>
 
 " tcomment
