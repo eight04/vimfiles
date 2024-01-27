@@ -61,7 +61,7 @@ let g:tcomment_opleader1 = "<Leader>c"
 
 " Coc
 command! CocStop call coc#rpc#kill()
-autocmd FileType text let b:coc_disabled_sources = ['around', 'buffer']
+" autocmd FileType text let b:coc_disabled_sources = ['around', 'buffer']
 set updatetime=300
 
 " Use tab for trigger completion with characters ahead and navigate

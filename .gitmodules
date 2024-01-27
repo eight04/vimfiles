@@ -78,10 +78,6 @@
 	path = pack/plugins/start/vim-browser-search
 	url = https://github.com/voldikss/vim-browser-search.git
 	branch = master
-[submodule "pack/plugins/start/vim-peekaboo"]
-	path = pack/plugins/start/vim-peekaboo
-	url = https://github.com/junegunn/vim-peekaboo.git
-	branch = master
 [submodule "pack/plugins/start/bullets"]
 	path = pack/plugins/start/bullets
 	url = https://github.com/dkarter/bullets.vim.git
