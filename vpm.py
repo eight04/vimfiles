@@ -5,11 +5,24 @@ import argparse
 import re
 import sys
 import shutil
+import traceback
 
 from pathlib import Path, PurePosixPath
-from subprocess import run
+from subprocess import run as run_raw
 
 ROOT = Path("pack/plugins/start")
+
+def run(cmd, **kwargs):
+    print(" ".join(cmd) if isinstance(cmd, list) else cmd)
+    return run_raw(cmd, **kwargs)
+
+def rmtree(p):
+    try:
+        shutil.rmtree(p)
+    except FileNotFoundError:
+        pass
+    except:
+        traceback.print_exc()
 
 def get_plugin_name(url):
     return url.split("/")[-1].split(".")[0]
@@ -44,7 +57,7 @@ class App:
                 branch = re.search(r"HEAD branch: (.*)", r.stdout).group(1)
             name = get_plugin_name(plugin)
             # FIXME: depth=1 doesn't work with branch? failed to install coc.nvim
-            cmd = ["git", "submodule", "add", "--force",  "-b", branch, plugin, f"{posix_path(ROOT)}/{name}"]
+            cmd = ["git", "submodule", "add", "--depth", "1", "--force",  "-b", branch, plugin, f"{posix_path(ROOT)}/{name}"]
             run(cmd, shell=True)
 
     def update(self, plugins):
@@ -95,8 +108,8 @@ class App:
             run(["git", "rm", "-f", (f"{posix_path(ROOT)}/{plugin}")], shell=True)
             run(["git", "config", "--remove-section", f"submodule.\"{posix_path(ROOT)}/{plugin}\""], shell=True)
             # NOTE: this leaves some idx files that raises permission error?
-            shutil.rmtree(f".git/modules/{posix_path(ROOT)}/{plugin}", ignore_errors=True)
-            shutil.rmtree(f"{posix_path(ROOT)}/{plugin}", ignore_errors=True)
+            rmtree(f".git/modules/{posix_path(ROOT)}/{posix_path(plugin)}")
+            rmtree(f"{posix_path(ROOT)}/{plugin}")
 
     def list(self, _):
         for plugin in ROOT.iterdir():

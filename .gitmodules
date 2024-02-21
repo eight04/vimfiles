@@ -57,10 +57,6 @@
 [submodule "pack/plugins/start/auto_mkdir2"]
 	path = pack/plugins/start/auto_mkdir2
 	url = https://github.com/arp242/auto_mkdir2.vim.git
-[submodule "pack/plugins/start/coc"]
-	path = pack/plugins/start/coc
-	url = https://github.com/neoclide/coc.nvim.git
-	branch = release
 [submodule "pack/plugins/start/emmet-vim"]
 	path = pack/plugins/start/emmet-vim
 	url = https://github.com/mattn/emmet-vim.git
@@ -89,4 +85,8 @@
 [submodule "pack/plugins/start/lexima"]
 	path = pack/plugins/start/lexima
 	url = https://github.com/cohama/lexima.vim.git
+	branch = master
+[submodule "pack/plugins/start/coc"]
+	path = pack/plugins/start/coc
+	url = https://github.com/neoclide/coc.nvim.git
 	branch = master
