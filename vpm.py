@@ -120,6 +120,13 @@ class App:
             plugins = [plugin.name for plugin in ROOT.iterdir()]
 
         for plugin in plugins:
+            print(f"checking {plugin}")
+            run(
+                "git fetch",
+                shell=True,
+                cwd=(f"{posix_path(ROOT)}/{plugin}"),
+                # capture_output=True,
+            )
             r = run(
                 "git log ..@{u} --oneline --color=always",
                 shell=True,
@@ -129,12 +136,10 @@ class App:
             if r.stdout:
                 print(plugin)
                 sys.stdout.buffer.write(r.stdout)
-                print("")
-
             elif r.stderr:
                 print(plugin)
                 sys.stdout.buffer.write(r.stderr)
-                print("")
 
+            print("")
 
 App()
