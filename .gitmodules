@@ -82,3 +82,7 @@
 	path = pack/plugins/start/coc
 	url = https://github.com/neoclide/coc.nvim.git
 	branch = master
+[submodule "pack/plugins/start/vim-indent-guides"]
+	path = pack/plugins/start/vim-indent-guides
+	url = https://github.com/preservim/vim-indent-guides.git
+	branch = master
