@@ -28,6 +28,9 @@ set switchbuf+=usetab,newtab
 set iskeyword+=-
 set dir=$HOME/vimfiles/swp//
 
+command! Wex !start explorer /select,%:p
+command! Wt !start wt -d "%:p:h"
+
 " Bullets
 let g:bullets_set_mappings = 0 " disable adding default key mappings, default = 1
 let g:bullets_custom_mappings = [
@@ -45,6 +48,13 @@ let g:bullets_custom_mappings = [
   \ ['nmap', '<<', '<Plug>(bullets-promote)'],
   \ ['vmap', '<', '<Plug>(bullets-promote)'],
   \ ]
+let g:bullets_enabled_file_types = [
+    \ 'markdown',
+    \ 'text',
+    \ 'gitcommit',
+    \ 'scratch',
+    \ 'rst',
+    \]
 
 " lexima
 " https://github.com/cohama/lexima.vim/issues/129
