@@ -12,7 +12,7 @@ from pathlib import Path, PurePosixPath
 from subprocess import run as run_raw
 
 ROOT = Path("pack/plugins/start")
-DEBUG = os.environ["DEBUG"]
+DEBUG = os.environ.get("DEBUG")
 
 def run(cmd, **kwargs):
     if DEBUG:
