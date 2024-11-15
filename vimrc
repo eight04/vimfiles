@@ -79,6 +79,25 @@ let g:tcomment_opleader1 = "<Leader>c"
 command! CocStop call coc#rpc#kill()
 " autocmd FileType text let b:coc_disabled_sources = ['around', 'buffer']
 set updatetime=300
+let g:coc_global_extensions = [
+  \ 'coc-json',
+  \ 'coc-tsserver',
+  \ 'coc-pyright',
+  \ 'coc-toml',
+  \ 'coc-eslint']
+  " \ 'coc-html',
+  " \ 'coc-css',
+  " \ 'coc-svelte',
+  " \ 'coc-vetur',
+  " \ 'coc-yaml',
+  " \ 'coc-emmet',
+  " \ 'coc-snippets',
+  " \ 'coc-xml',
+  " \ 'coc-yank',
+  " \ 'coc-highlight',
+  " \ 'coc-lists',
+  " \ 'coc-prettier',
+  " \ 'coc-ultisnips'
 
 " Use tab for trigger completion with characters ahead and navigate
 " NOTE: There's always complete item selected by default, you may want to enable
