@@ -30,14 +30,6 @@
 	path = pack/plugins/start/vim-smarthome
 	url = https://github.com/m-pilia/vim-smarthome.git
 	branch = master
-[submodule "pack/plugins/start/vim-start-cmd"]
-	path = pack/plugins/start/vim-start-cmd
-	url = https://github.com/eight04/vim-start-cmd.git
-	branch = main
-[submodule "pack/plugins/start/indentLine"]
-	path = pack/plugins/start/indentLine
-	url = https://github.com/Yggdroot/indentLine.git
-	branch = master
 [submodule "pack/plugins/start/vim-liver"]
 	branch = main
 	url = https://github.com/eight04/vim-liver.git
