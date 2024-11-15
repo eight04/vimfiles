@@ -13,7 +13,7 @@ from subprocess import run as run_raw
 ROOT = Path("pack/plugins/start")
 
 def run(cmd, **kwargs):
-    print(" ".join(cmd) if isinstance(cmd, list) else cmd)
+    print("> " + (" ".join(cmd) if isinstance(cmd, list) else cmd))
     return run_raw(cmd, **kwargs)
 
 def rmtree(p):
@@ -60,48 +60,50 @@ class App:
             cmd = ["git", "submodule", "add", "--depth", "1", "--force",  "-b", branch, plugin, f"{posix_path(ROOT)}/{name}"]
             run(cmd, shell=True)
 
-    def update(self, plugins):
-        if not plugins:
-            plugins = [plugin.name for plugin in ROOT.iterdir()]
-
-        for plugin in plugins:
+    def get_remote_branch(self, plugin):
+        # check submodule config
+        r = run(
+            f'git config -f .gitmodules submodule."{posix_path(ROOT)}/{plugin}".branch',
+            shell=True,
+            capture_output=True,
+            text=True,
+        )
+        branch = r.stdout.strip()
+        if not branch:
+            # use remote default
             r = run(
-                "git status",
+                "git remote show origin",
                 shell=True,
-                cwd=f"{posix_path(ROOT)}/{plugin}",
+                cwd=(f"{posix_path(ROOT)}/{plugin}"),
                 capture_output=True,
                 text=True,
             )
-            if "up to date" in r.stdout:
-                continue
-            print(plugin)
-            if "HEAD detached" in r.stdout:
-                # switch back to init branch?
-                r = run(
-                    f'git config -f .gitmodules submodule."{posix_path(ROOT)}/{plugin}".branch',
-                    shell=True,
-                    cwd=f"{posix_path(ROOT)}/{plugin}",
-                    capture_output=True,
-                    text=True,
-                )
-                branch = r.stdout.strip()
-                if not branch:
-                    # siwtch to remote default?
-                    r = run(
-                        "git remote show origin",
-                        shell=True,
-                        cwd=(f"{posix_path(ROOT)}/{plugin}"),
-                        capture_output=True,
-                        text=True,
-                    )
-                    branch = re.search(r"HEAD branch: (.*)", r.stdout).group(1)
-                run(
-                    ["git", "checkout", branch],
-                    shell=True,
-                    cwd=(f"{posix_path(ROOT)}/{plugin}"),
-                )
-            run("git pull", shell=True, cwd=(f"{posix_path(ROOT)}/{plugin}"))
-            print("")
+            branch = re.search(r"HEAD branch: (.*)", r.stdout).group(1)
+        return branch
+
+    def reset_branch(self, plugin):
+        return
+        r_status = run(
+            "git status",
+            shell=True,
+            cwd=f"{posix_path(ROOT)}/{plugin}",
+            capture_output=True,
+            text=True,
+        )
+        detached = False
+
+        if "HEAD detached" in r_status.stdout:
+            detached = True
+            # switch back to init branch?
+            run(
+                ["git", "checkout", branch],
+                shell=True,
+                cwd=(f"{posix_path(ROOT)}/{plugin}"),
+            )
+        return r_status, detached
+
+    def update(self, plugins):
+        return self.outdated(plugins, update=True)
 
     def uninstall(self, plugins):
         for plugin in plugins:
@@ -115,30 +117,38 @@ class App:
         for plugin in ROOT.iterdir():
             print(plugin.name)
 
-    def outdated(self, plugins):
+    def outdated(self, plugins, update=False):
         if not plugins:
             plugins = [plugin.name for plugin in ROOT.iterdir()]
 
         for plugin in plugins:
             print(f"checking {plugin}")
+            branch = self.get_remote_branch(plugin)
             run(
                 "git fetch",
                 shell=True,
                 cwd=(f"{posix_path(ROOT)}/{plugin}"),
                 # capture_output=True,
             )
-            r = run(
-                "git log ..@{u} --oneline --color=always",
-                shell=True,
-                cwd=(f"{posix_path(ROOT)}/{plugin}"),
-                capture_output=True,
-            )
-            if r.stdout:
-                print(plugin)
-                sys.stdout.buffer.write(r.stdout)
-            elif r.stderr:
-                print(plugin)
-                sys.stdout.buffer.write(r.stderr)
+            if not update:
+                r = run(
+                    f"git log HEAD...origin/{branch} --oneline --color=always",
+                    shell=True,
+                    cwd=(f"{posix_path(ROOT)}/{plugin}"),
+                    capture_output=True,
+                )
+                if r.stdout:
+                    print(plugin)
+                    sys.stdout.buffer.write(r.stdout)
+                elif r.stderr:
+                    print(plugin)
+                    sys.stdout.buffer.write(r.stderr)
+            else:
+                run(
+                    f"git checkout origin/{branch}",
+                    shell=True,
+                    cwd=(f"{posix_path(ROOT)}/{plugin}"),
+                )
 
             print("")
 
