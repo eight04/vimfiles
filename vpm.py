@@ -6,14 +6,17 @@ import re
 import sys
 import shutil
 import traceback
+import os
 
 from pathlib import Path, PurePosixPath
 from subprocess import run as run_raw
 
 ROOT = Path("pack/plugins/start")
+DEBUG = os.environ["DEBUG"]
 
 def run(cmd, **kwargs):
-    print("> " + (" ".join(cmd) if isinstance(cmd, list) else cmd))
+    if DEBUG:
+        print("> " + (" ".join(cmd) if isinstance(cmd, list) else cmd))
     return run_raw(cmd, **kwargs)
 
 def rmtree(p):
@@ -80,27 +83,6 @@ class App:
             )
             branch = re.search(r"HEAD branch: (.*)", r.stdout).group(1)
         return branch
-
-    def reset_branch(self, plugin):
-        return
-        r_status = run(
-            "git status",
-            shell=True,
-            cwd=f"{posix_path(ROOT)}/{plugin}",
-            capture_output=True,
-            text=True,
-        )
-        detached = False
-
-        if "HEAD detached" in r_status.stdout:
-            detached = True
-            # switch back to init branch?
-            run(
-                ["git", "checkout", branch],
-                shell=True,
-                cwd=(f"{posix_path(ROOT)}/{plugin}"),
-            )
-        return r_status, detached
 
     def update(self, plugins):
         return self.outdated(plugins, update=True)
