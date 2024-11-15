@@ -4,7 +4,8 @@ source $VIMRUNTIME/defaults.vim
 " basic settings
 if has('gui_running')
   au GUIEnter * simalt ~x
-  set guifont=Source_Code_Pro:h11:cANSI:qDRAFT
+  " this setting should be set for different monitors
+  " set guifont=Source_Code_Pro:h11:cANSI:qDRAFT
   colorscheme obsidian
   " autocmd VimEnter * echo ">^.^<"
 endif
