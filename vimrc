@@ -263,8 +263,8 @@ function! s:AlignRightOperator(type)
   let @@ = oldR
 endfunction
 
-nmap <silent> <Leader>k <Plug>SearchNormal
-vmap <silent> <Leader>k <Plug>SearchVisual
+nmap <silent> gs <Plug>SearchNormal
+vmap <silent> gs <Plug>SearchVisual
 
 " Substitute operator
 nnoremap <silent> <leader>s :set operatorfunc=<SID>SubstituteOperator<cr>g@
