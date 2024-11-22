@@ -5,7 +5,7 @@
   "suggest.chineseSegments": false,
   "languageserver": {
     "lsp-ahk2": {
-      "module": "C:/Users/eight04/AppData/Local/coc/extensions-vscode/thqby.vscode-autohotkey2-lsp-2.0.0/extension/server/dist/server.js",
+      "module": "C:\\Users\\eight04\\dev\\ahk2-lsp\\server\\dist\\server.js",
       "filetypes": ["autohotkey"],
       "args": ["--node-ipc"],
       "initializationOptions": {
@@ -37,6 +37,8 @@
         "WorkingDirs": [],
         "SymbolFoldingFromOpenBrace": false
       }
-    }
+    },
+    // FIXME: https://github.com/fannheyward/coc-pyright/issues/1087
+    "pyright.inlayHints.parameterTypes": false
   }
 }
