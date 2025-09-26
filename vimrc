@@ -28,6 +28,8 @@ set scrolloff=40
 set switchbuf+=usetab,newtab
 set iskeyword+=-
 set dir=$HOME/vimfiles/swp//
+" set cursorcolumn
+" set cursorline
 
 " if (&diff==0)
 "   autocmd BufReadPost * tab ball
@@ -79,6 +81,8 @@ inoremap <M-n> <C-r>=lexima#insmode#leave_till_eol("")<CR>
 " tcomment
 let g:tcomment_opleader1 = "<Leader>c"
 
+command! Aria2jd %s/\n\s*out/#out/g
+
 " Coc
 command! CocStop call coc#rpc#kill()
 " autocmd FileType text let b:coc_disabled_sources = ['around', 'buffer']
@@ -86,9 +90,9 @@ set updatetime=300
 let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-tsserver',
-  \ 'coc-pyright',
   \ 'coc-toml',
-  \ 'coc-eslint']
+  \ 'coc-eslint',
+  \ 'coc-basedpyright']
   " \ 'coc-html',
   " \ 'coc-css',
   " \ 'coc-svelte',
