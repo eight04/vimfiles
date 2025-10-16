@@ -24,8 +24,16 @@ def rmtree(p):
         shutil.rmtree(p)
     except FileNotFoundError:
         pass
-    except:
-        traceback.print_exc()
+    except PermissionError:
+        # https://stackoverflow.com/questions/76546956/permissionerror-winerror-5-access-is-denied-team-sortifie-git-git-object
+        # try to remove read-only attribute and retry
+        def onexc(func, path, exc_info):
+            os.chmod(path, 0o666)
+            func(path)
+        try:
+            shutil.rmtree(p, onexc=onexc)
+        except Exception:
+            traceback.print_exc()
 
 def get_plugin_name(url):
     return url.split("/")[-1].split(".")[0]
@@ -62,6 +70,8 @@ class App:
             # FIXME: depth=1 doesn't work with branch? failed to install coc.nvim
             cmd = ["git", "submodule", "add", "--depth", "1", "--force",  "-b", branch, plugin, f"{posix_path(ROOT)}/{name}"]
             run(cmd, shell=True)
+
+        print("To rebuild help tags, run\n:helptags ALL")
 
     def get_remote_branch(self, plugin):
         # check submodule config
