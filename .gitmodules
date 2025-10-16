@@ -22,10 +22,6 @@
 	path = pack/plugins/start/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
 	branch = master
-[submodule "pack/plugins/start/vim-prosession"]
-	path = pack/plugins/start/vim-prosession
-	url = https://github.com/eight04/vim-prosession.git
-	branch = master
 [submodule "pack/plugins/start/vim-smarthome"]
 	path = pack/plugins/start/vim-smarthome
 	url = https://github.com/m-pilia/vim-smarthome.git
@@ -85,4 +81,12 @@
 [submodule "pack/plugins/start/vim-indent-guides"]
 	path = pack/plugins/start/vim-indent-guides
 	url = https://github.com/preservim/vim-indent-guides.git
+	branch = master
+[submodule "pack/plugins/start/vim-jsonpath"]
+	path = pack/plugins/start/vim-jsonpath
+	url = https://github.com/mogelbrod/vim-jsonpath.git
+	branch = master
+[submodule "pack/plugins/start/vim-prosession"]
+	path = pack/plugins/start/vim-prosession
+	url = https://github.com/dhruvasagar/vim-prosession.git
 	branch = master
