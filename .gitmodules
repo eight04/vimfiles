@@ -2,10 +2,6 @@
 	path = pack/plugins/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim.git
 	branch = master
-[submodule "pack/plugins/start/fzf"]
-	path = pack/plugins/start/fzf
-	url = https://github.com/junegunn/fzf.git
-	branch = master
 [submodule "pack/plugins/start/targets.vim"]
 	path = pack/plugins/start/targets.vim
 	url = https://github.com/wellle/targets.vim.git
@@ -89,4 +85,12 @@
 [submodule "pack/plugins/start/vim-prosession"]
 	path = pack/plugins/start/vim-prosession
 	url = https://github.com/dhruvasagar/vim-prosession.git
+	branch = master
+[submodule "pack/plugins/start/fzf"]
+	path = pack/plugins/start/fzf
+	url = https://github.com/junegunn/fzf.git
+	branch = master
+[submodule "pack/plugins/start/fzf.vim"]
+	path = pack/plugins/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
 	branch = master

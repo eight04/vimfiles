@@ -1,5 +1,10 @@
 """
 vpm.py - a simple package manager cli for Vim plugins, based on git submodules.
+
+NOTE: Some plugins requires additional setup after installation, e.g.
+
+- coc.nvim: `npm ci` in the plugin directory.
+- fzf: `fzf#install()`
 """
 import argparse
 import re
@@ -36,7 +41,8 @@ def rmtree(p):
             traceback.print_exc()
 
 def get_plugin_name(url):
-    return url.split("/")[-1].split(".")[0]
+    m = re.search(r"([^/\\]+)\.git", url)
+    return m.group(1)
 
 def posix_path(p):
     # https://github.com/git-for-windows/git/issues/3575
