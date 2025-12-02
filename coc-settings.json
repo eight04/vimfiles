@@ -40,5 +40,6 @@
     },
     // FIXME: https://github.com/fannheyward/coc-pyright/issues/1087
     "pyright.inlayHints.parameterTypes": false
-  }
+  },
+  "svelte.enable-ts-plugin": true
 }

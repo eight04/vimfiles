@@ -92,10 +92,10 @@ let g:coc_global_extensions = [
   \ 'coc-tsserver',
   \ 'coc-toml',
   \ 'coc-eslint',
+  \ 'coc-svelte',
   \ 'coc-basedpyright']
   " \ 'coc-html',
   " \ 'coc-css',
-  " \ 'coc-svelte',
   " \ 'coc-vetur',
   " \ 'coc-yaml',
   " \ 'coc-emmet',
@@ -139,6 +139,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap <silent> grn <Plug>(coc-rename)
 nmap <silent> grf <Plug>(coc-refactor)
+nmap <silent> grw :CocCommand document.renameCurrentWord<CR>
 " xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 " nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 
@@ -187,6 +188,10 @@ if has('win32')
   let g:prosession_dir = "~/vimfiles/session/"
 endif
 let g:prosession_last_session_dir = "~"
+" otherwise prosession starts a new session if no session file is found for
+" input file
+" https://github.com/dhruvasagar/vim-prosession/issues/116
+let g:prosession_default_session = 0
 " set sessionoptions-=options
 
 " text object
@@ -251,6 +256,20 @@ endfunction
 nnoremap <silent> <leader>g :set operatorfunc=<SID>GrepOperator<cr>g@
 vnoremap <silent> <leader>g :<C-U>call <SID>GrepOperator(visualmode())<CR>
 
+command! -nargs=* -bar Grep call <SID>Grep(<f-args>)
+
+function! s:Grep(...)
+  if &grepprg =~? "findstr"
+    let cmd = ["grep! /S"] + a:000 + ["*"]
+  elseif &grepprg =~? "grep"
+    let cmd = ["grep! -r"] + a:000 + ["."]
+  else
+    let cmd = ["grep!"] + a:000
+  endif
+  silent execute expandcmd(join(cmd, ' '))
+  copen
+endfunction
+
 function! s:GrepOperator(type)
   let oldR = @@
   if a:type ==# "v"
@@ -261,15 +280,7 @@ function! s:GrepOperator(type)
     return
   endif
   let word = @@
-  if &grepprg =~? "findstr"
-    let cmd = "grep! /S " . shellescape(word) . " *"
-  elseif &grepprg =~? "grep"
-    let cmd = "grep! -r " . shellescape(word) . " ."
-  else
-    let cmd = "grep! " . shellescape(word)
-  endif
-  silent execute cmd
-  copen
+  call s:Grep(word)
   let @@ = oldR
 endfunction
 
