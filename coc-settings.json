@@ -2,7 +2,7 @@
   "coc.preferences.jumpCommand": "tab drop",
   "coc.preferences.formatOnType": false,
   "suggest.asciiMatch": true,
-  "suggest.chineseSegments": false,
+  "suggest.segmenterLocales": null,
   "languageserver": {
     "lsp-ahk2": {
       "module": "C:\\Users\\eight04\\dev\\ahk2-lsp\\server\\dist\\server.js",
