@@ -94,3 +94,7 @@
 	path = pack/plugins/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
 	branch = master
+[submodule "pack/plugins/start/vim-prettier"]
+	path = pack/plugins/start/vim-prettier
+	url = https://github.com/prettier/vim-prettier.git
+	branch = master

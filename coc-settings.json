@@ -5,7 +5,7 @@
   "suggest.segmenterLocales": null,
   "languageserver": {
     "lsp-ahk2": {
-      "module": "C:\\Users\\eight04\\dev\\ahk2-lsp\\server\\dist\\server.js",
+      "module": "C:\\Users\\eight04\\dev\\vscode-autohotkey2-lsp\\server\\dist\\server.js",
       "filetypes": ["autohotkey"],
       "args": ["--node-ipc"],
       "initializationOptions": {
