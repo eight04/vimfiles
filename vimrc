@@ -218,6 +218,7 @@ let g:vim_json_conceal = 0
 
 " Emmet
 nnoremap <C-y>u :call EmmetUpdateTag()<CR>
+nnoremap <C-Y>k vat<Esc>da>`<da> 
 let g:user_emmet_settings = {
 \ "html": {
 \   "inline_elements": ""
