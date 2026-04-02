@@ -34,6 +34,8 @@ set dir=$HOME/vimfiles/swp//
 " if (&diff==0)
 "   autocmd BufReadPost * tab ball
 " endif
+"
+autocmd BufRead * DetectIndent
 
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_start_level = 2

@@ -1,7 +1,3 @@
-[submodule "pack/plugins/start/editorconfig-vim"]
-	path = pack/plugins/start/editorconfig-vim
-	url = https://github.com/editorconfig/editorconfig-vim.git
-	branch = master
 [submodule "pack/plugins/start/targets.vim"]
 	path = pack/plugins/start/targets.vim
 	url = https://github.com/wellle/targets.vim.git
@@ -98,3 +94,7 @@
 	path = pack/plugins/start/vim-prettier
 	url = https://github.com/prettier/vim-prettier.git
 	branch = master
+[submodule "pack/plugins/start/vim-yadi"]
+	path = pack/plugins/start/vim-yadi
+	url = https://github.com/timakro/vim-yadi.git
+	branch = main
