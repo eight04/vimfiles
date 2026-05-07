@@ -8,6 +8,9 @@ if has('gui_running')
   " set guifont=Source_Code_Pro:h11:cANSI:qDRAFT
   colorscheme obsidian
   " autocmd VimEnter * echo ">^.^<"
+  packadd coc
+  packadd copilot
+  packadd vim-prosession
 endif
 syntax on
 filetype plugin on
