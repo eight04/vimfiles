@@ -11,7 +11,7 @@
 	url = https://github.com/andymass/vim-matchup.git
 	branch = master
 [submodule "pack/plugins/start/vim-obsession"]
-	path = pack/plugins/start/vim-obsession
+	path = pack/plugins/opt/vim-obsession
 	url = https://github.com/tpope/vim-obsession.git
 	branch = master
 [submodule "pack/plugins/start/vim-smarthome"]

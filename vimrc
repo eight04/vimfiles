@@ -10,6 +10,7 @@ if has('gui_running')
   " autocmd VimEnter * echo ">^.^<"
   packadd coc
   packadd copilot
+  packadd vim-obsession
   packadd vim-prosession
 endif
 syntax on
