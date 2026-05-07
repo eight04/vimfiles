@@ -8,10 +8,6 @@ if has('gui_running')
   " set guifont=Source_Code_Pro:h11:cANSI:qDRAFT
   colorscheme obsidian
   " autocmd VimEnter * echo ">^.^<"
-  packadd coc
-  packadd copilot
-  packadd vim-obsession
-  packadd vim-prosession
 endif
 syntax on
 filetype plugin on
@@ -89,46 +85,64 @@ let g:tcomment_opleader1 = "<Leader>c"
 
 command! Aria2jd %s/\n\s*out/#out/g
 
-" Coc
-command! CocStop call coc#rpc#kill()
-" autocmd FileType text let b:coc_disabled_sources = ['around', 'buffer']
-set updatetime=300
-let g:coc_global_extensions = [
-  \ 'coc-json',
-  \ 'coc-tsserver',
-  \ 'coc-toml',
-  \ 'coc-eslint',
-  \ 'coc-svelte',
-  \ 'coc-basedpyright']
-  " \ 'coc-html',
-  " \ 'coc-css',
-  " \ 'coc-vetur',
-  " \ 'coc-yaml',
-  " \ 'coc-emmet',
-  " \ 'coc-snippets',
-  " \ 'coc-xml',
-  " \ 'coc-yank',
-  " \ 'coc-highlight',
-  " \ 'coc-lists',
-  " \ 'coc-prettier',
-  " \ 'coc-ultisnips'
+function! CocRemap() abort
+  " Use tab for trigger completion with characters ahead and navigate
+  " NOTE: There's always complete item selected by default, you may want to enable
+  " no select by `"suggest.noselect": true` in your configuration file
+  " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+  " other plugin before putting this into your config
+  inoremap <silent><expr> <TAB>
+        \ coc#pum#visible() ? coc#pum#next(1) :
+        \ CheckBackspace() ? "\<Tab>" :
+        \ coc#refresh()
+  inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
-" Use tab for trigger completion with characters ahead and navigate
-" NOTE: There's always complete item selected by default, you may want to enable
-" no select by `"suggest.noselect": true` in your configuration file
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+  inoremap <silent><expr> <cr>
+    \ coc#pum#visible() ? coc#_select_confirm() :
+    \ InBulletList() ? "\<C-g>u\<Plug>(bullets-newline)\<c-r>=coc#on_enter()\<CR>" :
+    \ "\<C-g>u\<C-r>=lexima#expand('<LT>CR>', 'i')<CR>\<c-r>=coc#on_enter()\<CR>"
+    
+  nmap <silent> gd <Plug>(coc-definition)
+  nmap <silent> gy <Plug>(coc-type-definition)
+  nmap <silent> gi <Plug>(coc-implementation)
+  nmap <silent> gr <Plug>(coc-references)
+  nmap <silent> grn <Plug>(coc-rename)
+  nmap <silent> grf <Plug>(coc-refactor)
+  nmap <silent> grw :CocCommand document.renameCurrentWord<CR>
+  " xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
+  " nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
 
-inoremap <silent><expr> <cr>
-  \ coc#pum#visible() ? coc#_select_confirm() :
-  \ InBulletList() ? "\<C-g>u\<Plug>(bullets-newline)\<c-r>=coc#on_enter()\<CR>" :
-  \ "\<C-g>u\<C-r>=lexima#expand('<LT>CR>', 'i')<CR>\<c-r>=coc#on_enter()\<CR>"
-  
+  " Highlight the symbol and its references when holding the cursor
+  autocmd CursorHold * silent call CocActionAsync('highlight')
+
+  " Applying code actions to the selected code block
+  " Example: `<leader>aap` for current paragraph
+  xmap <leader>a  <Plug>(coc-codeaction-selected)
+  nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+  " Remap keys for applying code actions at the cursor position
+  nmap <leader>ac  <Plug>(coc-codeaction-cursor)
+  " Remap keys for apply code actions affect whole buffer
+  nmap <leader>as  <Plug>(coc-codeaction-source)
+  " Apply the most preferred quickfix action to fix diagnostic on the current line
+  " nmap <leader>qf  <Plug>(coc-fix-current)
+
+
+  " Run the Code Lens action on the current line
+  " nmap <leader>cl  <Plug>(coc-codelens-action)
+
+  " Map function and class text objects
+  " NOTE: Requires 'textDocument.documentSymbol' support from the language server
+  xmap if <Plug>(coc-funcobj-i)
+  omap if <Plug>(coc-funcobj-i)
+  xmap af <Plug>(coc-funcobj-a)
+  omap af <Plug>(coc-funcobj-a)
+  xmap ic <Plug>(coc-classobj-i)
+  omap ic <Plug>(coc-classobj-i)
+  xmap ac <Plug>(coc-classobj-a)
+  omap ac <Plug>(coc-classobj-a)
+endfunction
+
 function! InBulletList() abort
   let line = getline('.')
   return line =~# '\v^\s*(\*|-|\d+\.)\s+'
@@ -139,45 +153,33 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nmap <silent> grn <Plug>(coc-rename)
-nmap <silent> grf <Plug>(coc-refactor)
-nmap <silent> grw :CocCommand document.renameCurrentWord<CR>
-" xmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
-" nmap <silent> <leader>r  <Plug>(coc-codeaction-refactor-selected)
-
-" Highlight the symbol and its references when holding the cursor
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Applying code actions to the selected code block
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying code actions at the cursor position
-nmap <leader>ac  <Plug>(coc-codeaction-cursor)
-" Remap keys for apply code actions affect whole buffer
-nmap <leader>as  <Plug>(coc-codeaction-source)
-" Apply the most preferred quickfix action to fix diagnostic on the current line
-" nmap <leader>qf  <Plug>(coc-fix-current)
-
-
-" Run the Code Lens action on the current line
-" nmap <leader>cl  <Plug>(coc-codelens-action)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+" Coc
+if has("gui_running")
+  command! CocStop call coc#rpc#kill()
+  " autocmd FileType text let b:coc_disabled_sources = ['around', 'buffer']
+  set updatetime=300
+  let g:coc_global_extensions = [
+    \ 'coc-json',
+    \ 'coc-tsserver',
+    \ 'coc-toml',
+    \ 'coc-eslint',
+    \ 'coc-svelte',
+    \ 'coc-basedpyright']
+    " \ 'coc-html',
+    " \ 'coc-css',
+    " \ 'coc-vetur',
+    " \ 'coc-yaml',
+    " \ 'coc-emmet',
+    " \ 'coc-snippets',
+    " \ 'coc-xml',
+    " \ 'coc-yank',
+    " \ 'coc-highlight',
+    " \ 'coc-lists',
+    " \ 'coc-prettier',
+    " \ 'coc-ultisnips'
+  call CocRemap()
+  packadd coc
+endif
 
 " svelte
 let g:vim_svelte_plugin_use_typescript = 1
@@ -188,17 +190,6 @@ let g:vim_svelte_plugin_has_init_indent = 0
 " https://github.com/vim/vim/issues/9333
 let g:html_indent_script1 = "zero"
 let g:pyindent_open_paren = "shiftwidth()"
-
-" prosession
-if has('win32')
-  let g:prosession_dir = "~/vimfiles/session/"
-endif
-let g:prosession_last_session_dir = "~"
-" otherwise prosession starts a new session if no session file is found for
-" input file
-" https://github.com/dhruvasagar/vim-prosession/issues/116
-let g:prosession_default_session = 0
-" set sessionoptions-=options
 
 " text object
 autocmd User targets#mappings#user call targets#mappings#extend({
@@ -328,3 +319,19 @@ function! s:SubstituteOperator(type)
   let @@ = oldR
 endfunction
 
+if has('gui_running')
+  packadd copilot
+
+  packadd vim-obsession
+  " prosession
+  if has('win32')
+    let g:prosession_dir = "~/vimfiles/session/"
+  endif
+  let g:prosession_last_session_dir = "~"
+  " otherwise prosession starts a new session if no session file is found for
+  " input file
+  " https://github.com/dhruvasagar/vim-prosession/issues/116
+  let g:prosession_default_session = 0
+  " set sessionoptions-=options
+  packadd vim-prosession
+endif
