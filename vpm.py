@@ -17,7 +17,11 @@ from pathlib import Path, PurePosixPath
 from subprocess import run as run_raw
 
 ROOT = Path("pack/plugins/start")
+OPT_ROOT = Path("pack/plugins/opt")
 DEBUG = os.environ.get("DEBUG")
+
+def is_repo_url(url):
+    return re.match(r"^(https?|git|ssh|file)://", url) or re.match(r"^[\w-]+@[\w.-]+:", url)
 
 def run(cmd, **kwargs):
     if DEBUG:
@@ -55,27 +59,49 @@ class App:
             "command", choices=["install", "update", "uninstall", "list", "outdated"]
         )
         parser.add_argument(
+            "--save", choices=["opt", "start"], help="save plugin to opt or start (default: start)", default="start"
+        )
+        parser.add_argument(
             "plugin", nargs="*", help="git url or plugin name (when update/uninstall)"
         )
         args = parser.parse_args()
-        getattr(self, args.command)(args.plugin)
+        getattr(self, args.command)(args)
 
-    def install(self, plugins):
+    def install(self, args):
+        """
+        # install plugins from git urls, e.g.
+        vpm.py install [--save opt|start] [git_url1#branch1 git_url2#branch2 ...]
+        # move existing plugins to opt or start, e.g.
+        vpm.py install --save opt|start [plugin1 plugin2 ...]
+        """
+        plugins = args.plugin
         if not plugins:
             run("git submodule update --init --recursive", shell=True)
             return
-
         for plugin in plugins:
             branch = None
             if "#" in plugin:
                 plugin, branch = plugin.split("#")
             else:
-                r = run(["git", "remote", "show", plugin], capture_output=True, text=True)
-                branch = re.search(r"HEAD branch: (.*)", r.stdout).group(1)
-            name = get_plugin_name(plugin)
-            # FIXME: depth=1 doesn't work with branch? failed to install coc.nvim
-            cmd = ["git", "submodule", "add", "--depth", "1", "--force",  "-b", branch, plugin, f"{posix_path(ROOT)}/{name}"]
-            run(cmd, shell=True)
+                try:
+                    r = run(["git", "remote", "show", plugin], capture_output=True, text=True)
+                    branch = re.search(r"HEAD branch: (.*)", r.stdout).group(1)
+                except Exception:
+                    branch = "master"
+            name = get_plugin_name(plugin) if is_repo_url(plugin) else plugin
+            start_path = f"{posix_path(ROOT)}/{name}"
+            opt_path = f"{posix_path(OPT_ROOT)}/{name}"
+            if args.save == "opt" and Path(start_path).exists():
+                # move to opt if already exists in start
+                run(["git", "mv", start_path, opt_path], shell=True)
+            elif args.save == "start" and Path(opt_path).exists():
+                # move to start if already exists in opt
+                run(["git", "mv", opt_path, start_path], shell=True)
+            else:
+                # FIXME: depth=1 doesn't work with branch? failed to install coc.nvim
+                target_path = opt_path if args.save == "opt" else start_path
+                cmd = ["git", "submodule", "add", "--depth", "1", "--force",  "-b", branch, plugin, target_path]
+                run(cmd, shell=True)
 
         print("To rebuild help tags, run\n:helptags ALL")
 
@@ -100,11 +126,11 @@ class App:
             branch = re.search(r"HEAD branch: (.*)", r.stdout).group(1)
         return branch
 
-    def update(self, plugins):
-        return self.outdated(plugins, update=True)
+    def update(self, args):
+        return self.outdated(args, update=True)
 
-    def uninstall(self, plugins):
-        for plugin in plugins:
+    def uninstall(self, args):
+        for plugin in args.plugin:
             run(["git", "rm", "-f", (f"{posix_path(ROOT)}/{plugin}")], shell=True)
             run(["git", "config", "--remove-section", f"submodule.\"{posix_path(ROOT)}/{plugin}\""], shell=True)
             # NOTE: this leaves some idx files that raises permission error?
@@ -115,7 +141,8 @@ class App:
         for plugin in ROOT.iterdir():
             print(plugin.name)
 
-    def outdated(self, plugins, update=False):
+    def outdated(self, args, update=False):
+        plugins = args.plugin
         if not plugins:
             plugins = [plugin.name for plugin in ROOT.iterdir()]
 
