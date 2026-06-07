@@ -15,10 +15,16 @@ import os
 
 from pathlib import Path, PurePosixPath
 from subprocess import run as run_raw
+from typing import NamedTuple
 
 ROOT = Path("pack/plugins/start")
 OPT_ROOT = Path("pack/plugins/opt")
 DEBUG = os.environ.get("DEBUG")
+
+class Plugin(NamedTuple):
+     root: Path
+     folder: Path
+     name: str
 
 def is_repo_url(url):
     return re.match(r"^(https?|git|ssh|file)://", url) or re.match(r"^[\w-]+@[\w.-]+:", url)
@@ -105,10 +111,21 @@ class App:
 
         print("To rebuild help tags, run\n:helptags ALL")
 
-    def get_remote_branch(self, plugin):
+    def find_plugin_folder(self, plugin: str) -> Path:
+        start_path = ROOT / plugin
+        opt_path = OPT_ROOT / plugin
+        if start_path.exists():
+            return start_path
+        elif opt_path.exists():
+            return opt_path
+        else:
+            raise FileNotFoundError(f"Plugin '{plugin}' not found in {ROOT} or {OPT_ROOT}")
+
+    def get_remote_branch(self, plugin: str) -> str:
+        folder = self.find_plugin_folder(plugin)
         # check submodule config
         r = run(
-            f'git config -f .gitmodules submodule."{posix_path(ROOT)}/{plugin}".branch',
+            f'git config -f .gitmodules submodule."{posix_path(folder)}".branch',
             shell=True,
             capture_output=True,
             text=True,
@@ -119,7 +136,7 @@ class App:
             r = run(
                 "git remote show origin",
                 shell=True,
-                cwd=(f"{posix_path(ROOT)}/{plugin}"),
+                cwd=folder,
                 capture_output=True,
                 text=True,
             )
@@ -131,48 +148,57 @@ class App:
 
     def uninstall(self, args):
         for plugin in args.plugin:
-            run(["git", "rm", "-f", (f"{posix_path(ROOT)}/{plugin}")], shell=True)
-            run(["git", "config", "--remove-section", f"submodule.\"{posix_path(ROOT)}/{plugin}\""], shell=True)
+            folder = self.find_plugin_folder(plugin)
+            run(["git", "rm", "-f", (f"{posix_path(folder)}")], shell=True)
+            run(["git", "config", "--remove-section", f"submodule.\"{posix_path(folder)}\""], shell=True)
             # NOTE: this leaves some idx files that raises permission error?
-            rmtree(f".git/modules/{posix_path(ROOT)}/{posix_path(plugin)}")
-            rmtree(f"{posix_path(ROOT)}/{plugin}")
+            rmtree(f".git/modules/{posix_path(folder)}")
+            rmtree(f"{posix_path(folder)}")
 
     def list(self, _):
         for plugin in ROOT.iterdir():
             print(plugin.name)
 
-    def outdated(self, args, update=False):
-        plugins = args.plugin
-        if not plugins:
-            plugins = [plugin.name for plugin in ROOT.iterdir()]
+    def list_plugins(self):
+        for root in [ROOT, OPT_ROOT]:
+            for folder in root.iterdir():
+                yield Plugin(root, folder, folder.name)
 
-        for plugin in plugins:
-            print(f"checking {plugin}")
-            branch = self.get_remote_branch(plugin)
+    def outdated(self, args, update=False):
+        d = {
+            p.name: p for p in self.list_plugins()
+            }
+        if any(name not in d for name in args.plugin):
+            raise ValueError("Some plugins not found: " + ", ".join(name for name in args.plugin if name not in d))
+        plugins = [d[name] for name in args.plugin] if args.plugin else d.values()
+
+        for p in plugins:
+            print(f"checking {p.name}...")
+            branch = self.get_remote_branch(p.name)
             run(
                 "git fetch",
                 shell=True,
-                cwd=(f"{posix_path(ROOT)}/{plugin}"),
+                cwd=p.folder,
                 # capture_output=True,
             )
             if not update:
                 r = run(
                     f"git log HEAD...origin/{branch} --oneline --color=always",
                     shell=True,
-                    cwd=(f"{posix_path(ROOT)}/{plugin}"),
+                    cwd=p.folder,
                     capture_output=True,
                 )
                 if r.stdout:
-                    print(plugin)
+                    print(p.name)
                     sys.stdout.buffer.write(r.stdout)
                 elif r.stderr:
-                    print(plugin)
+                    print(p.name)
                     sys.stdout.buffer.write(r.stderr)
             else:
                 run(
                     f"git checkout origin/{branch}",
                     shell=True,
-                    cwd=(f"{posix_path(ROOT)}/{plugin}"),
+                    cwd=p.folder,
                 )
 
             print("")
