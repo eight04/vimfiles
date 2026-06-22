@@ -28,6 +28,7 @@ set scrolloff=40
 set switchbuf+=usetab,newtab
 set iskeyword+=-
 set dir=$HOME/vimfiles/swp//
+set foldmethod=syntax
 " set cursorcolumn
 " set cursorline
 
