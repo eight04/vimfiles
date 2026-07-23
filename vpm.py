@@ -106,7 +106,10 @@ class App:
             else:
                 # FIXME: depth=1 doesn't work with branch? failed to install coc.nvim
                 target_path = opt_path if args.save == "opt" else start_path
-                cmd = ["git", "submodule", "add", "--depth", "1", "--force",  "-b", branch, plugin, target_path]
+                # FIXME: can't use depth=1 when branch is specified?
+                # https://github.com/JetSetIlly/vim-obsession.git#vim9script_compatibility
+                # cmd = ["git", "submodule", "add", "--depth", "1", "--force",  "-b", branch, plugin, target_path]
+                cmd = ["git", "submodule", "add", "--force",  "-b", branch, plugin, target_path]
                 run(cmd, shell=True)
 
         print("To rebuild help tags, run\n:helptags ALL")

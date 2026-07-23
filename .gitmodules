@@ -94,3 +94,7 @@
 	path = pack/plugins/start/vim-yadi
 	url = https://github.com/timakro/vim-yadi.git
 	branch = main
+[submodule "pack/plugins/opt/vim-obsession"]
+	path = pack/plugins/opt/vim-obsession
+	url = https://github.com/JetSetIlly/vim-obsession.git
+	branch = vim9script_compatibility
