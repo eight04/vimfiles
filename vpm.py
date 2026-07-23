@@ -156,7 +156,7 @@ class App:
             rmtree(f"{posix_path(folder)}")
 
     def list(self, _):
-        for plugin in ROOT.iterdir():
+        for plugin in self.list_plugins():
             print(plugin.name)
 
     def list_plugins(self):
