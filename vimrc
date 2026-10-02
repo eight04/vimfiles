@@ -37,6 +37,11 @@ set foldlevelstart=99
 "   autocmd BufReadPost * tab ball
 " endif
 "
+
+let g:fzf_layout = { 'down': '80%' }
+
+autocmd BufNewFile,BufRead *.tl set filetype=html
+
 autocmd BufRead * DetectIndent
 
 let g:indent_guides_enable_on_vim_startup = 1
