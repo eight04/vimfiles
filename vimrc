@@ -28,7 +28,8 @@ set scrolloff=40
 set switchbuf+=usetab,newtab
 set iskeyword+=-
 set dir=$HOME/vimfiles/swp//
-set foldmethod=syntax
+" FIXME: this is super slow on 4MB json
+" set foldmethod=syntax
 set foldlevelstart=99
 " set cursorcolumn
 " set cursorline
